@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shihu.my.alipay.dao.TransferRecordDao">
+	<resultMap id="BaseResultMap" type="com.shihu.my.api.model.TransferRecord">
+		<result column="id" property="id" />
+		<result column="balance" property="balance" />
+	</resultMap>
+
+
+	<parameterMap id="TransferRecord" type="com.shihu.my.api.model.TransferRecord"/>
+	<sql id="Base_Column_List">
+		id, balance
+	</sql>
+
+	<select id="get" resultMap="BaseResultMap" parameterType="string">
+		select
+		<include refid="Base_Column_List" />
+		from transfer_record
+		where id = #{id}
+	</select>
+
+	<update id="insert" parameterMap="TransferRecord" >
+		insert into transfer_record(id,balance) values (#{id},#{balance})
+	</update>
+</mapper>

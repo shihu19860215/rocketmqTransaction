@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shihu.my.abc.dao.AccountDao">
+	<resultMap id="BaseResultMap" type="com.shihu.my.api.model.Account">
+		<result column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="balance" property="balance" />
+		<result column="last_change_time" property="lastChangeTime" />
+	</resultMap>
+
+
+	<parameterMap id="Account" type="com.shihu.my.api.model.Account"/>
+	<sql id="Base_Column_List">
+		id, name, balance, last_change_time
+	</sql>
+
+	<select id="get" resultMap="BaseResultMap" parameterType="long">
+		select
+		<include refid="Base_Column_List" />
+		from account_
+		where id = #{id}
+	</select>
+
+	<update id="update" parameterMap="Account" >
+		update account_ set balance=#{balance},last_change_time=now() where id=#{id} and last_change_time=#{lastChangeTime} and balance=#{oldBalance}
+	</update>
+</mapper>
